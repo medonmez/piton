@@ -28,11 +28,11 @@ def card_value(card):
     else:
         return int(card[1])
     
-def total_value(cards):
+def total_value(mydeck):
     total = 0
     i = 0
-    while i < len(cards):
-        total += card_value(cards[i])
+    while i < len(mydeck):
+        total += card_value(mydeck[i])
         i += 1
     return total
 
