@@ -1,3 +1,2 @@
 # piton
-deneysel
 beni yıka
