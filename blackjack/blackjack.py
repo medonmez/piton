@@ -48,7 +48,7 @@ for game in range(1, num_games + 1):
     
     print("King's cards: (*)" + str(kings_cards[1]))
     print("Total value:", card_value(kings_cards[1]))
-    print("Sage's cards:", sages_cards)
+    print("Sage's cards:", *sages_cards)
     print("Total value:", total_value(sages_cards))
     
     while True:
