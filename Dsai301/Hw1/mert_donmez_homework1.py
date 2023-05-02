@@ -1,3 +1,4 @@
+r
 # Mert Dönmez
 # 2016203039
 
@@ -70,7 +71,7 @@ home = float(input("Enter the price of your dream home: "))
 salary = float(input("Enter your salary: "))
 
 # Input for the percentage of salary saved monthly
-saving_percentage = float(input("Enter the percentage of your salary you save monthly (25 for 25%): "))
+saving_percentage = float(input("Enter the percentage of your salary you save monthly (Enter 30 for 30%): "))
 
 # Calculate the amount of money saved monthly
 saving_money = salary * (saving_percentage / 100)
@@ -78,7 +79,8 @@ saving_money = salary * (saving_percentage / 100)
 # Calculate the number of months needed to save enough money for the dream home by dividing the home price by the monthly saving amount
 months = home / saving_money
 
-# Round up the number of months to the upper integer, using the round() function. For example: 40.1 months rounds up to 41
+# Round up the number of months to the upper integer, using the round() function. 
+# For example: 40.1 months rounds up to 41 (It is not 40 because it can not be bought in 40th month)
 # Adding 0.49999999 helps to correct upper rounding. If we use +0.5, 51 months(for example) rounds to 52 because it is a odd number.
 months_upper_rounded = round(months + 0.49999999)
 
