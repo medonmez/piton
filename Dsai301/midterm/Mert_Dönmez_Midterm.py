@@ -168,6 +168,11 @@ def get_all_links(page_text):
             break
     return links
 
+def union(p,q):
+    for e in q: 
+        if e not in p: 
+            p.append(e)
+
 def no_some_commands(word):    #To filter some commands in html code. We dont want to index them.
     html_codes = ["<html>","<body>","<p>","</p>","<a","</body>","</html>"]
     if word in html_codes:
@@ -213,32 +218,27 @@ def addPageToIndex(index, url, content, crawl_date):
         if word not in conjunctions and word: #To not add these words and links as index
                 add_to_index(index, word, url, crawl_date)
 
-def should_recrawl(last_crawled_date):
-    current_date = datetime.date.today()
-    delta = last_crawled_date - current_date
-    if delta.days >= 60:
-        return True
-    else:
-        return False 
-    
-# sixty_days_later = datetime.date.today() + datetime.timedelta(days=60)
-# print(should_recrawl(sixty_days_later)) # testing procedure above
 
-def crawl_web(seed): #Updateted version of crawl_web. 
-    tocrawl = [(seed, datetime.date.today())]
-    crawled = []
-    index = []
-    while tocrawl:
-        pageUrl, last_crawled_date = tocrawl.pop()
-        if pageUrl not in crawled or should_recrawl(last_crawled_date):
-            content = getPage(pageUrl)
-            addPageToIndex(index, pageUrl, content, last_crawled_date)
-            for e in get_all_links(content):
-                if e not in tocrawl:
-                    tocrawl.append((e, datetime.date.today()))
-            crawled.append(pageUrl)
 
-    return index
+def crawlWeb(seed, date):  #just add a parameter for date
+  tocrawl = [seed]
+  crawled = []
+  index = []
+  while tocrawl: 
+    page = tocrawl.pop()
+    if page not in crawled: 
+      content = getPage(page)
 
-# print(crawl_web("https://udacity.github.io/cs101x/index.html"))
+      addPageToIndex(index, page, content, date)
+
+      union(tocrawl, get_all_links(getPage(page)))
+      crawled.append(page)
+
+  return index
+
+my_index = crawlWeb("https://udacity.github.io/cs101x/index.html", [12, 1, 2021])
+
+
+
+# print(crawlWeb("https://udacity.github.io/cs101x/index.html", [12, 1, 2021]))
 
